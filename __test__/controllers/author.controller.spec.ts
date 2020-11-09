@@ -28,19 +28,23 @@ describe('Author Controller', () => {
     authorController = module.get<AuthorController>(AuthorController);
   });
 
-  it('Should be defined', () => {
-    expect(authorController).toBeDefined();
+  describe('Controller status', () => {
+    it('Should be defined', () => {
+      expect(authorController).toBeDefined();
+    });
   });
 
-  it('findAll should create a DTO with missing values', async () => {
-    const authors: Author[] = [new Author('alejandro', 'test@test.com')];
-    authorService.findAll.mockResolvedValue(authors);
-    const dtos = (await authorController.findAll()).map(pojo => plainToClass(AuthorGetDTO, pojo));
-    dtos.map(async dto => {
-      const errors = await validate(dto, {
-        whitelist: true,
+  describe('find authors', () => {
+    it('findAll should create a DTO with missing values and catch errors', async () => {
+      const authors: Author[] = [new Author('alejandro', 'test@test.com')];
+      authorService.findAll.mockResolvedValue(authors);
+      const dtos = (await authorController.findAll()).map(pojo => plainToClass(AuthorGetDTO, pojo));
+      dtos.map(async dto => {
+        const errors = await validate(dto, {
+          whitelist: true,
+        });
+        expect(errors.length).toBeGreaterThan(0);
       });
-      expect(errors.length).toBeGreaterThan(0);
     });
   });
 });

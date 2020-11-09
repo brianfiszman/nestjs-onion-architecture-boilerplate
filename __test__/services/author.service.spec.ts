@@ -36,7 +36,9 @@ describe('Author Service', () => {
     service = module.get<AuthorService>(AuthorService);
   });
 
-  it('Should be defined', () => {
-    expect(service).toBeDefined();
+  describe('Service status', () => {
+    it('Should be defined', () => {
+      expect(service).toBeDefined();
+    });
   });
 });
