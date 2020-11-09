@@ -16,8 +16,8 @@ Sometimes developers ignore the problems revealed by existing tests and move tow
 In most cases, it doesn’t require new testing. Small changes to existing tests should be enough. The expected outcome of refactoring is to have all tests passed before and after the code has been changed.
 
 ### Anatomy
-Sigue las siguientes recomendaciones para que tus tests sean mas legibles y sigan el correcto estandar del proyecto.
-#### 1- Incluye 3 partes al nombrar cada test
+Follow the next recommendations so that your tests are more readable and follow the correct standard of the project.
+#### 1- Includes 3 parts when naming each test
 1. **What is being tested?** For example, the ProductsService.addNewProduct method
 2. **Under what circumstances and scenario?** For example, no price is passed to the method
 3. **What is the expected result?** For example, the new product is not approved
@@ -33,7 +33,15 @@ describe('Products Service', function() {
   });
 });
 ```
-#### 2- Estructura tus tests siguiendo el patron AAA
+The result will be something like
+```sh
+  Author Controller
+    Controller status
+      ✓ Should be defined (15 ms)
+    find authors
+      ✓ findAll should create a DTO with missing values and catch errors (7 ms)
+```
+#### 2- Structure your tests following the AAA pattern
 1. A - **Arrange**: All the setup code to bring the system to the scenario the test aims to simulate. This might include instantiating the unit under test constructor, adding DB records, mocking/stubbing on objects and any other preparation code
 2. A - **Act**: Execute the unit under test. Usually 1 line of code
 3. A - **Assert**: Ensure that the received value satisfies the expectation. Usually 1 line of code
@@ -51,11 +59,11 @@ describe("Customer classifier", () => {
 });
 ```
 
-#### 3- Categorizar los tests en al menos 2 niveles.
-Aplicando esta estructura los tests quedan agrupados de una forma mucho mas ordenada, lo que nos permite saber de forma clara el modulo que se esta probando y cual es el escenario o la accion que queremos comprobar. 
-Un método común para esto es colocar al menos 2 bloques 'describir' encima de sus pruebas: 
-1. **nombre de la unidad bajo prueba**
-2. nivel adicional de categorización como el **escenario o categorías personalizadas**
+#### 3- Categorize the tests into at least 2 levels.
+Applying this structure, the tests are grouped in a much more orderly way, which allows us to clearly know the module that is being tested and which is the scenario or action that we want to check.
+A common method for this is to place at least 2 'describe' blocks on top of your tests:
+1. **name of the unit to be test**
+2. additional level of categorization such as **custom stage or categories**
 ```sh
 # Unity/Service under test
 describe("Shop service", () => {
