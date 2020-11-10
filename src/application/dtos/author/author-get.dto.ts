@@ -9,9 +9,25 @@ export class AuthorGetDTO {
   @IsNotEmpty()
   email: string;
   @IsOptional()
-  termsAccepted: boolean | null;
+  termsAccepted: boolean | undefined;
   @IsNotEmpty()
   born: Date | undefined;
   @IsOptional()
   favouriteBook: Book | undefined;
+
+  constructor(
+    id: string,
+    name: string,
+    email: string,
+    termsAccepted: boolean | undefined,
+    born: Date | undefined,
+    favouriteBook: Book | undefined
+  ) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.termsAccepted = termsAccepted;
+    this.born = born;
+    this.favouriteBook = favouriteBook;
+  }
 }
