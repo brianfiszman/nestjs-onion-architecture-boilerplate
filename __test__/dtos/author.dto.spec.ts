@@ -1,21 +1,14 @@
 import { validate, ValidationError } from 'class-validator';
 import { plainToClass } from 'class-transformer';
-import { uuid } from 'uuidv4';
-import { name, date, internet, lorem } from 'faker';
 import { AuthorCreateDTO } from '../../src/application/dtos/author/author-create.dto';
 import { AuthorGetDTO } from '../../src/application/dtos/author';
+import { fakeAuthor, fakeAuthorMaxLength } from './../../src/infrastructure/mocks/author.mock';
 
 describe('Author DTO', () => {
-  const faker = {
-    id: uuid(),
-    name: name.firstName(),
-    email: internet.email(),
-    born: date.past(),
-  };
   describe('Author create', () => {
     it('Requires [name] property', async () => {
       const data = {
-        email: faker.email,
+        email: fakeAuthor.email,
       };
       const dto = plainToClass(AuthorCreateDTO, data);
 
@@ -29,7 +22,7 @@ describe('Author DTO', () => {
 
     it('Requires [email] property', async () => {
       const data = {
-        name: faker.name,
+        name: fakeAuthor.name,
       };
       const dto = plainToClass(AuthorCreateDTO, data);
 
@@ -42,14 +35,7 @@ describe('Author DTO', () => {
     });
 
     it('Failed with max length', async () => {
-      const MaxLengthName = 50;
-      const MaxLengthEmail = 100;
-
-      const data = {
-        name: lorem.word(MaxLengthName + 1),
-        email: lorem.word(MaxLengthEmail + 1),
-      };
-      const dto = plainToClass(AuthorCreateDTO, data);
+      const dto = plainToClass(AuthorCreateDTO, fakeAuthorMaxLength);
 
       const errors = await validate(dto);
 
@@ -63,8 +49,8 @@ describe('Author DTO', () => {
 
     it('Succes with a valid properties', async () => {
       const data = {
-        name: faker.name,
-        email: faker.email,
+        name: fakeAuthor.name,
+        email: fakeAuthor.email,
       };
 
       const dto = plainToClass(AuthorCreateDTO, data);
@@ -76,14 +62,14 @@ describe('Author DTO', () => {
 
   describe('Author get', () => {
     it('Success with a valid properties', async () => {
-      const dto = plainToClass(AuthorGetDTO, faker);
+      const dto = plainToClass(AuthorGetDTO, fakeAuthor);
       const errors = await validate(dto);
 
       expect(errors).toHaveLength(0);
     });
 
     it('Requires [id] property', async () => {
-      const { id, ...data } = faker;
+      const { id, ...data } = fakeAuthor;
       const dto = plainToClass(AuthorGetDTO, data);
 
       const errors = await validate(dto);
@@ -95,7 +81,7 @@ describe('Author DTO', () => {
     });
 
     it('Requires [name] property', async () => {
-      const { name, ...data } = faker;
+      const { name, ...data } = fakeAuthor;
       const dto = plainToClass(AuthorGetDTO, data);
 
       const errors = await validate(dto);
@@ -107,7 +93,7 @@ describe('Author DTO', () => {
     });
 
     it('Requires [email] property', async () => {
-      const { email, ...data } = faker;
+      const { email, ...data } = fakeAuthor;
       const dto = plainToClass(AuthorGetDTO, data);
 
       const errors = await validate(dto);
@@ -119,7 +105,7 @@ describe('Author DTO', () => {
     });
 
     it('Requires [born] property', async () => {
-      const { born, ...data } = faker;
+      const { born, ...data } = fakeAuthor;
       const dto = plainToClass(AuthorGetDTO, data);
 
       const errors = await validate(dto);
