@@ -12,13 +12,13 @@ export class BookService {
   ) {}
 
   async findAll(): Promise<Book[]> {
-    const todos = await this.bookRepository.findAll();
-    return todos;
+    const results: Book[] = await this.bookRepository.findAll();
+    return results;
   }
 
   async create(values: BookCreateDTO): Promise<Book> {
     const { title, author } = values;
-    const book = new Book(title, author);
+    const book: Book = new Book(title, author);
     await this.bookRepository.persist(book);
     return book;
   }

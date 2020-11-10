@@ -12,13 +12,13 @@ export class AuthorService {
   ) {}
 
   async findAll(): Promise<Author[]> {
-    const todos = await this.authorRepository.findAll();
-    return todos;
+    const results: Author[] = await this.authorRepository.findAll();
+    return results;
   }
 
   async create(values: AuthorCreateDTO): Promise<Author> {
     const { name, email } = values;
-    const author = new Author(name, email);
+    const author: Author = new Author(name, email);
     await this.authorRepository.persist(author);
     return author;
   }
