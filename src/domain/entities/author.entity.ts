@@ -15,7 +15,7 @@ export class Author extends BaseEntity {
   age?: number;
 
   @Property()
-  termsAccepted = false;
+  termsAccepted?: boolean;
 
   @Property()
   born?: Date;
@@ -26,9 +26,20 @@ export class Author extends BaseEntity {
   @ManyToOne(() => Book)
   favouriteBook?: Book;
 
-  constructor(name: string, email: string) {
+  constructor(
+    name: string,
+    email: string,
+    age?: number,
+    termsAccepted?: boolean,
+    born?: Date | undefined,
+    favouriteBook?: Book | undefined
+  ) {
     super();
     this.name = name;
     this.email = email;
+    this.age = age;
+    this.termsAccepted = termsAccepted || false;
+    this.born = born;
+    this.favouriteBook = favouriteBook;
   }
 }
