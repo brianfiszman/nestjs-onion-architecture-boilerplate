@@ -1,5 +1,5 @@
 import { AuthorController } from './../../src/application/controllers/author.controller';
-import { AuthorService } from '../../src/domain/services/author';
+import { AuthorService } from '../../src/domain/services/author.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Author } from '../../src/domain/entities';
 import { plainToClass } from 'class-transformer';

@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { BookService } from '../../domain/services/book';
+import { BookService } from '../../domain/services/book.service';
 import { BookCreateDTO } from '../dtos/book';
 import { BookGetDTO } from '../dtos/book/book-get.dto';
 

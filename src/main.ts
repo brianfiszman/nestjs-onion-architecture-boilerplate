@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './application/modules/app.module';
 import morgan from 'morgan';
 
 declare const module: any;

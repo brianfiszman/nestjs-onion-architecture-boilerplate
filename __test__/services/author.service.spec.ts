@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EntityManager } from '@mikro-orm/core';
-import { AuthorService } from './../../src/domain/services/author';
+import { AuthorService } from './../../src/domain/services/author.service';
 import { AuthorRepository } from './../../src/infrastructure/repositories/author';
 
 describe('Author Service', () => {

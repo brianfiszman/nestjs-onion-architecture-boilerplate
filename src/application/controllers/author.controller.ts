@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { AuthorService } from '../../domain/services/author';
+import { AuthorService } from '../../domain/services/author.service';
 import { AuthorCreateDTO, AuthorGetDTO } from '../dtos/author';
 
 @Controller('author')

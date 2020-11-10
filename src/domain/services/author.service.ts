@@ -1,12 +1,15 @@
-import { EntityManager } from '@mikro-orm/core';
+import { EntityRepository } from '@mikro-orm/mongodb';
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { AuthorCreateDTO } from '../../../application/dtos/author';
-import { AuthorRepository } from '../../../infrastructure/repositories';
-import { Author } from '../../entities';
+import { AuthorCreateDTO } from '../../application/dtos/author';
+import { Author } from '../entities';
 
 @Injectable()
 export class AuthorService {
-  constructor(private em: EntityManager, private authorRepository: AuthorRepository) {}
+  constructor(
+    @InjectRepository(Author)
+    private readonly authorRepository: EntityRepository<Author>
+  ) {}
 
   async findAll(): Promise<Author[]> {
     const todos = await this.authorRepository.findAll();
@@ -17,7 +20,6 @@ export class AuthorService {
     const { name, email } = values;
     const author = new Author(name, email);
     await this.authorRepository.persist(author);
-    await this.em.flush();
     return author;
   }
 }
