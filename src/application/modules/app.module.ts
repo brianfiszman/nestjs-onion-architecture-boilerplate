@@ -4,7 +4,7 @@ import { MikroOrmModule, MikroOrmModuleOptions } from '@mikro-orm/nestjs';
 import { AppController } from '../controllers';
 import { AuthorModule } from '../modules/author.module';
 import { BookModule } from '../modules/book.module';
-import mikroOrmOptions from '../../mikro-orm.config';
+import mikroOrmOptions from '../../infrastructure/database/mikro-orm.config';
 
 @Module({
   imports: [MikroOrmModule.forRoot(mikroOrmOptions), AuthorModule, BookModule],
