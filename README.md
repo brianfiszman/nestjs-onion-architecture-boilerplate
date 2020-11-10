@@ -37,11 +37,12 @@
 ```
 ### - Application
 
-This layer should limit your responsibilities to the following tasks
+This layer should limit your responsibilities to the following tasks:  
+
 1. Execute access control policies (authentication, authorization, etc.)
-2. validating user input
-3. send calls or commands to the appropriate service method
-4. transform entities returned by the service into data transfer objects (DTO) for output / serialization
+2. Validating user input
+3. Send calls or commands to the appropriate service method
+4. Transform entities returned by the service into data transfer objects (DTO) for output / serialization
 
 ###### Controllers
 It receives the requests made to the server and uses the ***services*** to send responses to the client.
@@ -50,6 +51,7 @@ It receives the requests made to the server and uses the ***services*** to send 
 ###### DTOs
 As its name indicates, it is an object that will be used to ***transfer information*** and represents the object that will be sent to the client, this is the object that our API will return to the rest of the services, either For internal use or for third parties, so we can have multiple DTOs for each entity according to the use we need.
 It is also used to define the type of objects to be received by the controllers
+
 - The DTO should have only data, ***should not to have any type of business logic***.
 - May have references to other DTOs
 
@@ -59,9 +61,12 @@ Contains all domain level concerns, this includes ***business logic***, and doma
 
 ###### Entities
 Represents an object in the database and encapsulates key rules related to that object, so it can contain some logic to ***validate its properties*** but ***not*** complex business logic.
+
 - An entity must always represent the ***object in the database***, so it must not have more or less properties than the object it represents.
+
 ###### Services
 It contains the business logic which provides controllers (or other services) to be used.
+
 - Your methods can receive both ***Entities*** and ***Data***
 - They should always return ***entities*** that will be converted into ***DTOs*** by the controller
 
