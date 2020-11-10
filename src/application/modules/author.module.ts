@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { AuthorService } from '../../domain/services/author.service';
 import { AuthorController } from '../controllers';
-import { Author } from './../../domain/entities/Author';
+import { Author } from '../../domain/entities/';
 
 @Module({
   imports: [MikroOrmModule.forFeature([Author])],

@@ -2,7 +2,12 @@ import { validate, ValidationError } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { AuthorCreateDTO } from '../../src/application/dtos/author/author-create.dto';
 import { AuthorGetDTO } from '../../src/application/dtos/author';
-import { fakeAuthor, fakeAuthorMaxLength } from './../../src/infrastructure/mocks/author.mock';
+import {
+  fakeAuthor,
+  fakeAuthorMaxLength,
+  fakeAuthorDTO,
+  fakeAuthorCreateDTO,
+} from './../../src/infrastructure/mocks/author.mock';
 
 describe('Author DTO', () => {
   describe('Author create', () => {
@@ -48,13 +53,7 @@ describe('Author DTO', () => {
     });
 
     it('Succes with a valid properties', async () => {
-      const data = {
-        name: fakeAuthor.name,
-        email: fakeAuthor.email,
-      };
-
-      const dto = plainToClass(AuthorCreateDTO, data);
-      const errors = await validate(dto);
+      const errors = await validate(fakeAuthorCreateDTO);
 
       expect(errors).toHaveLength(0);
     });
@@ -62,8 +61,7 @@ describe('Author DTO', () => {
 
   describe('Author get', () => {
     it('Success with a valid properties', async () => {
-      const dto = plainToClass(AuthorGetDTO, fakeAuthor);
-      const errors = await validate(dto);
+      const errors = await validate(fakeAuthorDTO);
 
       expect(errors).toHaveLength(0);
     });

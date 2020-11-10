@@ -1,9 +1,11 @@
-import { MaxLength } from 'class-validator';
+import { IsNotEmpty, MaxLength, ValidateNested } from 'class-validator';
 import { Author } from '../../../domain/entities';
 
 export class BookCreateDTO {
+  @IsNotEmpty()
   @MaxLength(50)
   title: string;
-  @MaxLength(100)
+  @IsNotEmpty()
+  @ValidateNested()
   author: Author;
 }

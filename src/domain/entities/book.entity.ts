@@ -1,6 +1,6 @@
 import { Cascade, Collection, Entity, ManyToMany, ManyToOne, Property } from '@mikro-orm/core';
 import { Author, BookTag, Publisher } from './index';
-import { BaseEntity } from './BaseEntity';
+import { BaseEntity } from './base.entity';
 
 @Entity()
 export class Book extends BaseEntity {

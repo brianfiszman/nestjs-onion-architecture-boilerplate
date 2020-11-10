@@ -1,2 +1,2 @@
-export * from './author';
-export * from './book';
+export * from './author.repository';
+export * from './book.repository';
