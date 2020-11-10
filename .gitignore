@@ -4,4 +4,7 @@ dist
 dist/**
 *.log
 */*.log
-*.lock
+
+# Jest coverage files
+coverage/
+coverage/**
