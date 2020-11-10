@@ -10,14 +10,10 @@ export class BookController {
   @Get()
   async findAll(): Promise<BookGetDTO[]> {
     const books = await this.bookService.findAll();
-    const dtos = books.map(book => {
+    const dtos: BookGetDTO[] = books.map(book => {
       const { id, title, author } = book;
 
-      return {
-        id,
-        title,
-        author,
-      };
+      return new BookGetDTO(id, title, author);
     });
 
     return dtos;
@@ -27,11 +23,7 @@ export class BookController {
   async create(@Body() values: BookCreateDTO): Promise<BookGetDTO> {
     const book = await this.bookService.create(values);
     const { id, title, author } = book;
-    const dto: BookGetDTO = {
-      id,
-      title,
-      author,
-    };
+    const dto: BookGetDTO = new BookGetDTO(id, title, author);
 
     return dto;
   }

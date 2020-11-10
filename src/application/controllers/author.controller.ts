@@ -9,17 +9,10 @@ export class AuthorController {
   @Get()
   async findAll(): Promise<AuthorGetDTO[]> {
     const authors = await this.authorService.findAll();
-    const dtos = authors.map(author => {
+    const dtos: AuthorGetDTO[] = authors.map(author => {
       const { id, name, email, termsAccepted, born, favouriteBook } = author;
 
-      return {
-        id,
-        name,
-        email,
-        termsAccepted,
-        born,
-        favouriteBook,
-      };
+      return new AuthorGetDTO(id, name, email, termsAccepted, born, favouriteBook);
     });
 
     return dtos;
@@ -29,14 +22,7 @@ export class AuthorController {
   async create(@Body() values: AuthorCreateDTO): Promise<AuthorGetDTO> {
     const author = await this.authorService.create(values);
     const { id, name, email, termsAccepted, born, favouriteBook } = author;
-    const dto: AuthorGetDTO = {
-      id,
-      name,
-      email,
-      termsAccepted,
-      born,
-      favouriteBook,
-    };
+    const dto: AuthorGetDTO = new AuthorGetDTO(id, name, email, termsAccepted, born, favouriteBook);
 
     return dto;
   }
