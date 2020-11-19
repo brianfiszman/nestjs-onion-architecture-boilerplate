@@ -1,5 +1,5 @@
-import { fakeAuthor } from './../../src/infrastructure/mocks/author.mock';
-import { fakeBook } from './../../src/infrastructure/mocks/book.mock';
+import { fakeAuthor } from './../factories/author.factory';
+import { fakeBook } from './../factories/book.factory';
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookController } from './../../src/application/controllers/book.controller';
 import { BookService } from './../../src/domain/services/book.service';

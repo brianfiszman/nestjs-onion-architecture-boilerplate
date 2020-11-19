@@ -2,12 +2,7 @@ import { validate, ValidationError } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { AuthorCreateDTO } from '../../src/application/dtos/author/author-create.dto';
 import { AuthorGetDTO } from '../../src/application/dtos/author';
-import {
-  fakeAuthor,
-  fakeAuthorMaxLength,
-  fakeAuthorDTO,
-  fakeAuthorCreateDTO,
-} from './../../src/infrastructure/mocks/author.mock';
+import { fakeAuthor, fakeAuthorMaxLength, fakeAuthorDTO, fakeAuthorCreateDTO } from './../factories/author.factory';
 
 describe('Author DTO', () => {
   describe('Author create', () => {

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EntityManager } from '@mikro-orm/core';
 import { AuthorService } from './../../src/domain/services/author.service';
 import { AuthorRepository } from './../../src/infrastructure/repositories';
-import { fakeAuthorCreateDTO } from '../../src/infrastructure/mocks/author.mock';
+import { fakeAuthorCreateDTO } from './../factories//author.factory';
 
 describe('Author Service', () => {
   let authorRepository: jest.Mocked<AuthorRepository>;

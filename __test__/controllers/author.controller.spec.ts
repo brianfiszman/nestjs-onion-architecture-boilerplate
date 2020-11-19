@@ -5,7 +5,7 @@ import { Author } from '../../src/domain/entities';
 import { AuthorController } from './../../src/application/controllers/author.controller';
 import { AuthorService } from '../../src/domain/services/author.service';
 import { AuthorGetDTO } from '../../src/application/dtos/author';
-import { fakeAuthor } from './../../src/infrastructure/mocks/author.mock';
+import { fakeAuthor } from './../factories/author.factory';
 
 describe('Author Controller', () => {
   let authorService: jest.Mocked<AuthorService>;

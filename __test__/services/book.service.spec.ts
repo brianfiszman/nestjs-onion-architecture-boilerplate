@@ -1,4 +1,4 @@
-import { fakeBookCreateDTO } from './../../src/infrastructure/mocks/book.mock';
+import { fakeBookCreateDTO } from './../factories/book.factory';
 import { EntityManager } from '@mikro-orm/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookService } from './../../src/domain/services/book.service';

@@ -1,7 +1,7 @@
 import { plainToClass } from 'class-transformer';
-import { name, date, internet, lorem, random } from 'faker';
+import { name, date, internet, lorem } from 'faker';
 import { v4 as uuid } from 'uuid';
-import { AuthorCreateDTO, AuthorGetDTO } from '../../application/dtos/author';
+import { AuthorCreateDTO, AuthorGetDTO } from '../../src/application/dtos/author';
 
 const MaxLengthName = 50;
 const MaxLengthEmail = 100;

@@ -1,14 +1,14 @@
 import { plainToClass } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
 import { BookCreateDTO } from '../../src/application/dtos/book';
-import { fakeAuthorCreateDTO } from './../../src/infrastructure/mocks/author.mock';
+import { fakeAuthorCreateDTO } from './../factories/author.factory';
 import {
   fakeBook,
   fakeBookMaxLength,
   fakeBookCreateDTO,
   fakeBookAuthorFailed,
   fakeBookDTO,
-} from './../../src/infrastructure/mocks/book.mock';
+} from './../factories/book.factory';
 
 describe('Book DTO', () => {
   describe('Book create', () => {

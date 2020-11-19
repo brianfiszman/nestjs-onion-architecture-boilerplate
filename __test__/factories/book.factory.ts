@@ -1,9 +1,9 @@
 import { plainToClass } from 'class-transformer';
 import { random, lorem, name } from 'faker';
 import { v4 as uuid } from 'uuid';
-import { BookCreateDTO } from '../../application/dtos/book';
-import { BookGetDTO } from '../../application/dtos/book/book-get.dto';
-import { fakeAuthorDTO } from './author.mock';
+import { BookCreateDTO } from '../../src/application/dtos/book';
+import { BookGetDTO } from '../../src/application/dtos/book/book-get.dto';
+import { fakeAuthorDTO } from './author.factory';
 
 const MaxLengthTitle = 50;
 
