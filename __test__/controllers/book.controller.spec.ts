@@ -38,10 +38,12 @@ describe('Book Controller', () => {
 
   describe('findAll', () => {
     it('findAll should return valid DTOs', async () => {
-      const { title } = fakeBook;
+      const { title, id } = fakeBook;
       const { name, email } = fakeAuthor;
       const author = new Author(name, email);
-      const books: Book[] = [new Book(title, author)];
+      const book = new Book(title, author);
+      book.id = id;
+      const books: Book[] = [book];
       bookService.findAll.mockResolvedValue(books);
       const dtos = await bookController.findAll();
 

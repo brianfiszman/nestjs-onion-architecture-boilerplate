@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { validate } from 'class-validator';
-import { plainToClass } from 'class-transformer';
 import { Author } from '../../src/domain/entities';
 import { AuthorController } from './../../src/application/controllers/author.controller';
 import { AuthorService } from '../../src/domain/services/author.service';
@@ -38,8 +37,11 @@ describe('Author Controller', () => {
 
   describe('findAll', () => {
     it('findAll should return valid DTOs', async () => {
-      const { name, email } = fakeAuthor;
-      const authors: Author[] = [new Author(name, email)];
+      const { name, email, id, born } = fakeAuthor;
+      const author: Author = new Author(name, email);
+      author.id = id;
+      author.born = born;
+      const authors: Author[] = [author];
       authorService.findAll.mockResolvedValue(authors);
       const dtos = await authorController.findAll();
 
