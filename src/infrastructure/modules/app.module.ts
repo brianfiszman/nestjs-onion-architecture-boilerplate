@@ -1,6 +1,5 @@
 import { Module, DynamicModule, OnApplicationShutdown } from '@nestjs/common';
-import { ORM, OrmModule, OrmModuleOptions } from '../database/orm';
-import ormOptions from '../database/orm/orm.config';
+import { ORM, OrmModule, OrmModuleOptions, ormOptions } from '../database/orm';
 import { AppController } from '../../application/controllers';
 import { AuthorModule } from '../../domain/modules/author.module';
 import { BookModule } from '../../domain/modules/book.module';
