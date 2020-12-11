@@ -47,6 +47,7 @@ describe('Author Service', () => {
   describe('Service test', () => {
     it('List all authors', async () => {
       const result = await service.findAll();
+
       expect(result).toHaveLength(1);
     });
 
