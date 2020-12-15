@@ -11,9 +11,9 @@ export class BookController {
   async findAll(): Promise<BookGetDTO[]> {
     const books = await this.bookService.findAll();
     const dtos: BookGetDTO[] = books.map(book => {
-      const { id, title, author } = book;
+      const { id, title } = book;
 
-      return new BookGetDTO(id, title, author);
+      return new BookGetDTO(id, title);
     });
 
     return dtos;
@@ -22,8 +22,8 @@ export class BookController {
   @Post()
   async create(@Body() values: BookCreateDTO): Promise<BookGetDTO> {
     const book = await this.bookService.create(values);
-    const { id, title, author } = book;
-    const dto: BookGetDTO = new BookGetDTO(id, title, author);
+    const { id, title } = book;
+    const dto: BookGetDTO = new BookGetDTO(id, title);
 
     return dto;
   }

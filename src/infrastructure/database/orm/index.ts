@@ -1,3 +1,2 @@
-export { MikroOrmModule as OrmModule, MikroOrmModuleOptions as OrmModuleOptions } from '@mikro-orm/nestjs';
-export { MikroORM as ORM } from '@mikro-orm/core';
-export { default as ormOptions } from './orm.config';
+export { mongoOptions, sqlOptions } from './orm.config';
+export { MongooseModule } from '@nestjs/mongoose';

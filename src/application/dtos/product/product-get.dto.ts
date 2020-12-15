@@ -1,13 +1,13 @@
 import { IsUUID, IsNotEmpty } from 'class-validator';
 
-export class BookGetDTO {
+export class ProductGetDTO {
   @IsUUID()
   id: string;
   @IsNotEmpty()
-  title: string;
+  ean: string;
 
-  constructor(id: string, title: string) {
+  constructor(id: string, ean: string) {
     this.id = id;
-    this.title = title;
+    this.ean = ean;
   }
 }

@@ -1,24 +1,14 @@
-import { Module, DynamicModule, OnApplicationShutdown } from '@nestjs/common';
-import { ORM, OrmModule, OrmModuleOptions, ormOptions } from '../database/orm';
-import { AppController } from '../../application/controllers';
-import { AuthorModule } from '../../domain/modules/author.module';
-import { BookModule } from '../../domain/modules/book.module';
+import { AppController } from './../../application/controllers';
+import { Module } from '@nestjs/common';
+import { mongoOptions, MongooseModule } from '../database/orm';
+import { ProductModule, BookModule } from '../../domain/modules';
 
 @Module({
-  imports: [OrmModule.forRoot(ormOptions), AuthorModule, BookModule],
+  imports: [
+    MongooseModule.forRoot(mongoOptions.clientUrl),
+    ProductModule,
+    BookModule,
+  ],
   controllers: [AppController],
 })
-export class AppModule implements OnApplicationShutdown {
-  constructor(private orm: ORM) {}
-
-  static register(options?: { ormOptions?: OrmModuleOptions }): DynamicModule {
-    return {
-      module: AppModule,
-      imports: [OrmModule.forRoot(ormOptions)],
-    };
-  }
-
-  async onApplicationShutdown(signal?: string | undefined): Promise<void> {
-    await this.orm.close();
-  }
-}
+export class AppModule {}

@@ -1,25 +1,19 @@
-import { EntityRepository } from '@mikro-orm/mongodb';
-import { InjectRepository } from '@mikro-orm/nestjs';
+import { AuthorRepository } from './../../infrastructure/repositories/author.repository';
 import { Injectable } from '@nestjs/common';
 import { AuthorCreateDTO } from '../../application/dtos/author';
-import { Author } from '../entities';
+import { Author } from '../schemas';
 
 @Injectable()
 export class AuthorService {
-  constructor(
-    @InjectRepository(Author)
-    private readonly authorRepository: EntityRepository<Author>
-  ) {}
+  constructor(private readonly authorRepository: AuthorRepository) {}
 
   async findAll(): Promise<Author[]> {
     const results: Author[] = await this.authorRepository.findAll();
     return results;
   }
 
-  async create(values: AuthorCreateDTO): Promise<Author> {
-    const { name, email } = values;
-    const author: Author = new Author(name, email);
-    await this.authorRepository.persist(author);
-    return author;
+  async create(authorCreateDTO: AuthorCreateDTO): Promise<Author> {
+    const newAuthor = this.authorRepository.create(authorCreateDTO);
+    return newAuthor;
   }
 }
