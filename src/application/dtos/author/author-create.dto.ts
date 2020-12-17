@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MaxLength } from 'class-validator';
 
 export class AuthorCreateDTO {
@@ -5,4 +6,9 @@ export class AuthorCreateDTO {
   name: string;
   @MaxLength(100)
   email: string;
+
+  constructor({ name, email }: any = {}) {
+    this.name = name;
+    this.email = email;
+  }
 }

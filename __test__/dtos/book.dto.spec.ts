@@ -14,7 +14,7 @@ describe('Book DTO', () => {
   describe('Book create', () => {
     it('Requires [title] property', async () => {
       const data = {
-        id: fakeBook.id,
+        _id: fakeBook._id,
         author: fakeAuthorCreateDTO,
       };
       const dto = plainToClass(BookCreateDTO, data);
@@ -29,7 +29,7 @@ describe('Book DTO', () => {
 
     it('Requires [author] property', async () => {
       const data = {
-        id: fakeBook.id,
+        _id: fakeBook._id,
         title: fakeBook.title,
       };
       const dto = plainToClass(BookCreateDTO, data);

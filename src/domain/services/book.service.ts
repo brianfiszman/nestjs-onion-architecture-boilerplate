@@ -1,7 +1,7 @@
-import { BookRepository } from './../../infrastructure/repositories';
 import { Injectable } from '@nestjs/common';
 import { BookCreateDTO } from '../../application/dtos/book';
-import { Book } from '../schemas';
+import { BookRepository } from '../../infrastructure/repositories';
+import { Book } from '../entities';
 
 @Injectable()
 export class BookService {
@@ -13,7 +13,7 @@ export class BookService {
   }
 
   async create(bookCreateDTO: BookCreateDTO): Promise<Book> {
-    const newBook = this.bookRepository.create(bookCreateDTO);
+    const newBook = this.bookRepository.persist(bookCreateDTO);
     return newBook;
   }
 }

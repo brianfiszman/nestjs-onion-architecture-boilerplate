@@ -10,21 +10,15 @@ export class BookController {
   @Get()
   async findAll(): Promise<BookGetDTO[]> {
     const books = await this.bookService.findAll();
-    const dtos: BookGetDTO[] = books.map(book => {
-      const { id, title } = book;
-
-      return new BookGetDTO(id, title);
-    });
+    const dtos: BookGetDTO[] = books.map(book => new BookGetDTO(book));
 
     return dtos;
   }
 
   @Post()
-  async create(@Body() values: BookCreateDTO): Promise<BookGetDTO> {
-    const book = await this.bookService.create(values);
-    const { id, title } = book;
-    const dto: BookGetDTO = new BookGetDTO(id, title);
-
-    return dto;
+  async create(@Body() bookCreateDTO: BookCreateDTO): Promise<BookGetDTO> {
+    const dto = new BookCreateDTO(bookCreateDTO);
+    const book = await this.bookService.create(dto);
+    return new BookGetDTO(book);
   }
 }

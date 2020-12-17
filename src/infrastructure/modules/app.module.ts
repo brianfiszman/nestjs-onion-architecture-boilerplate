@@ -1,14 +1,11 @@
-import { AppController } from './../../application/controllers';
 import { Module } from '@nestjs/common';
-import { mongoOptions, MongooseModule } from '../database/orm';
-import { ProductModule, BookModule } from '../../domain/modules';
+import { OrmModule, ormOptions } from '../database/orm';
+import { AppController } from '../../application/controllers';
+import { AuthorModule } from '../../domain/modules/author.module';
+import { BookModule } from '../../domain/modules/book.module';
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(mongoOptions.clientUrl),
-    ProductModule,
-    BookModule,
-  ],
+  imports: [OrmModule.forRoot(ormOptions.host, ormOptions.options), AuthorModule, BookModule],
   controllers: [AppController],
 })
 export class AppModule {}

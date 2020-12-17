@@ -1,21 +1,23 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { validate } from 'class-validator';
 import { fakeAuthor } from './../factories/author.factory';
 import { fakeBook } from './../factories/book.factory';
-import { Test, TestingModule } from '@nestjs/testing';
 import { BookController } from './../../src/application/controllers/book.controller';
 import { BookService } from './../../src/domain/services/book.service';
-import { Author, Book } from '../../src/domain/entities';
+import { Book } from '../../src/domain/entities';
 import { BookGetDTO } from '../../src/application/dtos/book/book-get.dto';
-import { validate } from 'class-validator';
+import { BookCreateDTO } from '../../src/application/dtos/book';
 
 describe('Book Controller', () => {
   let bookService: jest.Mocked<BookService>;
   let bookController: BookController;
 
+  const bookServiceMock: Partial<BookService> = {
+    findAll: jest.fn(),
+    create: jest.fn(),
+  };
+
   beforeEach(async () => {
-    const bookServiceMock: Partial<BookService> = {
-      findAll: jest.fn(),
-      create: jest.fn(),
-    };
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
@@ -38,11 +40,9 @@ describe('Book Controller', () => {
 
   describe('findAll', () => {
     it('findAll should return valid DTOs', async () => {
-      const { title, id } = fakeBook;
-      const { name, email } = fakeAuthor;
-      const author = new Author(name, email);
-      const book = new Book(title, author);
-      book.id = id;
+      const { title, _id } = fakeBook;
+      const book: any = new BookCreateDTO({ title, author: fakeAuthor });
+      book._id = _id;
       const books: Book[] = [book];
       bookService.findAll.mockResolvedValue(books);
       const dtos = await bookController.findAll();
@@ -57,10 +57,10 @@ describe('Book Controller', () => {
 
   describe('create', () => {
     it('New book should be and DTO instance', async () => {
-      const { title } = fakeBook;
-      const { name, email } = fakeAuthor;
-      const author = new Author(name, email);
-      const book: Book = new Book(title, author);
+      const { title, _id } = fakeBook;
+      const author = fakeAuthor;
+      const book: any = new BookCreateDTO({ title, author });
+      book._id = _id;
       bookService.create.mockResolvedValue(book);
 
       const result = await bookController.create(book);

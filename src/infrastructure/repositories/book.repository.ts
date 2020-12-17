@@ -2,21 +2,19 @@ import { BookCreateDTO } from './../../application/dtos/book/book-create.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Book } from '../../domain/schemas';
+import { Book, BookDocument } from '../../domain/entities';
+import { Entities } from '../../domain/entities/entities.enum';
 
 @Injectable()
 export class BookRepository {
-  constructor(
-    @InjectModel(Book.name)
-    private readonly bookModel: Model<Book>
-  ) {}
+  constructor(@InjectModel(Entities.Book) private readonly bookModel: Model<BookDocument>) {}
 
   async findAll(): Promise<Book[]> {
-    const results: Book[] = await this.bookModel.find();
+    const results: Book[] = await this.bookModel.find().exec();
     return results;
   }
 
-  async create(bookCreateDTO: BookCreateDTO): Promise<Book> {
+  async persist(bookCreateDTO: BookCreateDTO): Promise<Book> {
     const newBook = new this.bookModel(bookCreateDTO);
     return newBook.save();
   }

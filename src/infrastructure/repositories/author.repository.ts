@@ -1,22 +1,20 @@
-import { AuthorCreateDTO } from './../../application/dtos/author/author-create.dto';
+import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Author } from '../../domain/schemas';
+import { Author, AuthorDocument } from '../../domain/entities';
+import { AuthorCreateDTO } from '../../application/dtos/author/author-create.dto';
+import { Entities } from '../../domain/entities/entities.enum';
 
 @Injectable()
 export class AuthorRepository {
-  constructor(
-    @InjectModel(Author.name)
-    private readonly authorModel: Model<Author>
-  ) {}
+  constructor(@InjectModel(Entities.Author) private readonly authorModel: Model<AuthorDocument>) {}
 
   async findAll(): Promise<Author[]> {
-    const results: Author[] = await this.authorModel.find();
+    const results: Author[] = await this.authorModel.find().exec();
     return results;
   }
 
-  async create(authorCreateDTO: AuthorCreateDTO): Promise<Author> {
+  async persist(authorCreateDTO: AuthorCreateDTO): Promise<Author> {
     const newAuthor = new this.authorModel(authorCreateDTO);
     return newAuthor.save();
   }

@@ -1,40 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { EntityManager } from '@mikro-orm/core';
 import { AuthorService } from './../../src/domain/services/author.service';
 import { AuthorRepository } from './../../src/infrastructure/repositories';
 import { fakeAuthorCreateDTO } from './../factories//author.factory';
 
 describe('Author Service', () => {
-  let authorRepository: jest.Mocked<AuthorRepository>;
   let service: AuthorService;
 
-  beforeEach(async () => {
-    const authorRepositoryMock = {
+  beforeAll(async () => {
+    const AuthorRepositoryMock = {
       findAll: jest.fn(async () => ['author']),
-      persist: jest.fn(async () => Promise.resolve()),
+      persist: jest.fn(async () => Promise.resolve(fakeAuthorCreateDTO)),
     };
-    const entityManagerMock = {
-      flush: jest.fn(),
-      getRepository: jest.fn(() => authorRepositoryMock),
-      transactional: jest.fn(async cb => {
-        await cb(entityManagerMock);
-      }),
-    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: EntityManager,
-          useValue: entityManagerMock,
-        },
-        {
           provide: AuthorRepository,
-          useValue: authorRepositoryMock,
+          useValue: AuthorRepositoryMock,
         },
         AuthorService,
       ],
     }).compile();
 
-    authorRepository = module.get(AuthorRepository);
     service = module.get<AuthorService>(AuthorService);
   });
 

@@ -1,27 +1,27 @@
+import request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { AuthorController } from '../../src/application/controllers';
 import { AuthorService } from '../../src/domain/services/author.service';
-import { getRepositoryToken } from '@mikro-orm/nestjs';
-import { Author } from '../../src/domain/entities';
 import { fakeAuthor, fakeAuthorCreateDTO } from '../factories/author.factory';
-import request from 'supertest';
+import { AuthorRepository } from '../../src/infrastructure/repositories';
 
 describe('Author endpoints (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const mockRepository = {
-      findAll: () => [fakeAuthor],
-      persist: () => Promise.resolve(fakeAuthorCreateDTO),
+      findAll: jest.fn(() => [fakeAuthor]),
+      persist: jest.fn(() => Promise.resolve(fakeAuthorCreateDTO)),
     };
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [],
       controllers: [AuthorController],
       providers: [
         AuthorService,
         {
-          provide: getRepositoryToken(Author),
+          provide: AuthorRepository,
           useValue: mockRepository,
         },
       ],
@@ -40,12 +40,12 @@ describe('Author endpoints (e2e)', () => {
       const { body } = await request(app.getHttpServer()).get('/author');
 
       const [author] = body;
-      const { name, email, born } = fakeAuthor;
+      const { _id, name, email } = fakeAuthor;
 
       expect(author).toMatchObject({
+        _id,
         name,
         email,
-        born: born.toISOString(),
       });
     });
   });

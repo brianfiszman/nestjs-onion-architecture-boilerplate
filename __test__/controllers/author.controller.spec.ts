@@ -1,5 +1,5 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { validate } from 'class-validator';
+import { Test, TestingModule } from '@nestjs/testing';
 import { Author } from '../../src/domain/entities';
 import { AuthorController } from './../../src/application/controllers/author.controller';
 import { AuthorService } from '../../src/domain/services/author.service';
@@ -10,11 +10,12 @@ describe('Author Controller', () => {
   let authorService: jest.Mocked<AuthorService>;
   let authorController: AuthorController;
 
+  const authorServiceMock: Partial<AuthorService> = {
+    findAll: jest.fn(),
+    create: jest.fn(),
+  };
+
   beforeEach(async () => {
-    const authorServiceMock: Partial<AuthorService> = {
-      findAll: jest.fn(),
-      create: jest.fn(),
-    };
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
@@ -37,10 +38,7 @@ describe('Author Controller', () => {
 
   describe('findAll', () => {
     it('findAll should return valid DTOs', async () => {
-      const { name, email, id, born } = fakeAuthor;
-      const author: Author = new Author(name, email);
-      author.id = id;
-      author.born = born;
+      const author: Author = new AuthorGetDTO(fakeAuthor);
       const authors: Author[] = [author];
       authorService.findAll.mockResolvedValue(authors);
       const dtos = await authorController.findAll();
@@ -57,8 +55,7 @@ describe('Author Controller', () => {
 
   describe('create', () => {
     it('New author should be an DTO instance', async () => {
-      const { name, email } = fakeAuthor;
-      const author: Author = new Author(name, email);
+      const author: Author = new AuthorGetDTO(fakeAuthor);
       authorService.create.mockResolvedValue(author);
 
       const result = await authorController.create(author);

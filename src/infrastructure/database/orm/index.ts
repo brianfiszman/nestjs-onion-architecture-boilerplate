@@ -1,2 +1,2 @@
-export { mongoOptions, sqlOptions } from './orm.config';
-export { MongooseModule } from '@nestjs/mongoose';
+export { MongooseModule as OrmModule } from '@nestjs/mongoose';
+export { default as ormOptions } from './orm.config';

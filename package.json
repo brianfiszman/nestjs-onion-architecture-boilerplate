@@ -34,6 +34,7 @@
     "faker": "^5.1.0",
     "mongoose": "5.10",
     "morgan": "^1.10.0",
+    "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
     "start-server-webpack-plugin": "^2.2.5",

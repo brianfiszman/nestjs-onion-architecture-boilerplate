@@ -1,7 +1,7 @@
-import { AuthorRepository } from './../../infrastructure/repositories/author.repository';
 import { Injectable } from '@nestjs/common';
 import { AuthorCreateDTO } from '../../application/dtos/author';
-import { Author } from '../schemas';
+import { AuthorRepository } from '../../infrastructure/repositories';
+import { Author } from '../entities';
 
 @Injectable()
 export class AuthorService {
@@ -13,7 +13,7 @@ export class AuthorService {
   }
 
   async create(authorCreateDTO: AuthorCreateDTO): Promise<Author> {
-    const newAuthor = this.authorRepository.create(authorCreateDTO);
+    const newAuthor = this.authorRepository.persist(authorCreateDTO);
     return newAuthor;
   }
 }

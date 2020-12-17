@@ -1,12 +1,13 @@
-import { AuthorRepository } from './../../infrastructure/repositories/author.repository';
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { AuthorService } from '../services/author.service';
 import { AuthorController } from '../../application/controllers';
-import { Author, AuthorSchema } from '../schemas';
+import { OrmModule } from '../../infrastructure/database/orm';
+import { AuthorSchema } from '../entities';
+import { AuthorRepository } from '../../infrastructure/repositories';
+import { Entities } from '../entities/entities.enum';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Author.name, schema: AuthorSchema }])],
+  imports: [OrmModule.forFeature([{ name: Entities.Author, schema: AuthorSchema }])],
   controllers: [AuthorController],
   providers: [AuthorService, AuthorRepository],
 })

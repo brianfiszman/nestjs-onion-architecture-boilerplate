@@ -62,7 +62,7 @@ describe('Author DTO', () => {
     });
 
     it('Requires [id] property', async () => {
-      const { id, ...data } = fakeAuthor;
+      const { _id, ...data } = fakeAuthor;
       const dto = plainToClass(AuthorGetDTO, data);
 
       const errors = await validate(dto);
@@ -70,7 +70,7 @@ describe('Author DTO', () => {
 
       expect(errors).toHaveLength(1);
       expect(error).toBeInstanceOf(ValidationError);
-      expect(error.property).toBe('id');
+      expect(error.property).toBe('_id');
     });
 
     it('Requires [name] property', async () => {

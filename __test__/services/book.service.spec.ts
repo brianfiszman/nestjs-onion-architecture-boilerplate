@@ -1,31 +1,19 @@
-import { fakeBookCreateDTO } from './../factories/book.factory';
-import { EntityManager } from '@mikro-orm/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookService } from './../../src/domain/services/book.service';
 import { BookRepository } from './../../src/infrastructure/repositories';
+import { fakeBookCreateDTO } from './../factories/book.factory';
 
 describe('Book Service', () => {
-  let bookRepository: jest.Mocked<BookRepository>;
   let service: BookService;
 
   beforeEach(async () => {
     const bookRepositoryMock = {
       findAll: jest.fn(async () => ['book']),
-      persist: jest.fn(async () => Promise.resolve()),
+      persist: jest.fn(async () => Promise.resolve(fakeBookCreateDTO)),
     };
-    const entityManagerMock = {
-      flush: jest.fn(),
-      getRepository: jest.fn(() => bookRepositoryMock),
-      transactional: jest.fn(async cb => {
-        await cb(entityManagerMock);
-      }),
-    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        {
-          provide: EntityManager,
-          useValue: entityManagerMock,
-        },
         {
           provide: BookRepository,
           useValue: bookRepositoryMock,
@@ -34,7 +22,6 @@ describe('Book Service', () => {
       ],
     }).compile();
 
-    bookRepository = module.get(BookRepository);
     service = module.get<BookService>(BookService);
   });
 

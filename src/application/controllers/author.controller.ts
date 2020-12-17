@@ -9,21 +9,15 @@ export class AuthorController {
   @Get()
   async findAll(): Promise<AuthorGetDTO[]> {
     const authors = await this.authorService.findAll();
-    const dtos: AuthorGetDTO[] = authors.map(author => {
-      const { id, name, email, age, termsAccepted, born } = author;
-
-      return new AuthorGetDTO(id, name, email, age, termsAccepted, born);
-    });
+    const dtos: AuthorGetDTO[] = authors.map(author => new AuthorGetDTO(author));
 
     return dtos;
   }
 
   @Post()
-  async create(@Body() values: AuthorCreateDTO): Promise<AuthorGetDTO> {
-    const author = await this.authorService.create(values);
-    const { id, name, email, age, termsAccepted, born } = author;
-    const dto: AuthorGetDTO = new AuthorGetDTO(id, name, email, age, termsAccepted, born);
-
-    return dto;
+  async create(@Body() authorCreateDTO: AuthorCreateDTO): Promise<AuthorGetDTO> {
+    const dto = new AuthorCreateDTO(authorCreateDTO);
+    const author = await this.authorService.create(dto);
+    return new AuthorGetDTO(author);
   }
 }
