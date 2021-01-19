@@ -1,20 +1,7 @@
 import { plainToClass } from 'class-transformer';
-import { IsEnum, validateSync, IsNotEmpty } from 'class-validator';
-
-enum Environment {
-  Development = 'development',
-  Production = 'production',
-  Test = 'test',
-  Provision = 'provision',
-}
+import { validateSync, IsNotEmpty } from 'class-validator';
 
 class EnvironmentVariables {
-  @IsEnum(Environment)
-  NODE_ENV: Environment;
-
-  @IsNotEmpty()
-  NODE_PORT: string;
-
   @IsNotEmpty()
   MONGO_HOST: string;
 

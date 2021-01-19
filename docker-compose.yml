@@ -2,12 +2,24 @@ version: "3.4"
 
 services:
   mongo:
-    container_name: mongo
     image: mongo:3.7
+    container_name: mongo
+    restart: always
     ports:
       - 27017:27017
     volumes:
-      - mongo:/data/db
+      - ../data/mongodb:/data/db
+    mem_limit: "4G"
 
-volumes:
-  mongo:
+  ms_alkemics:
+    image: node:14
+    container_name: ms_alkemics
+    command: >
+      bash -c "cd /app && yarn && yarn start:debug"
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./:/app/

@@ -1,17 +1,18 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './infrastructure/modules/app.module';
 import morgan from 'morgan';
-import * as dotenv from 'dotenv';
+import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
+import { AppModule } from './infrastructure/modules/app.module';
 
-dotenv.config();
-
-const { NODE_PORT } = process.env;
 declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+
   app.use(morgan('dev'));
-  await app.listen(NODE_PORT || 5000);
+
+  const NODE_PORT = configService.get('NODE_PORT');
+  await app.listen(NODE_PORT);
 
   if (module.hot) {
     module.hot.accept();

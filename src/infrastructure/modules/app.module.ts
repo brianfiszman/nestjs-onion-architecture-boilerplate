@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { OrmModule, ormOptions } from '../database/orm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { configuration, EnvObjects, MongoOptions } from '../config/env.objects';
+import { OrmModule } from '../database/orm';
 import { AppController } from '../../application/controllers';
 import { AuthorModule } from '../../domain/modules/author.module';
 import { BookModule } from '../../domain/modules/book.module';
@@ -8,9 +9,20 @@ import { validate } from '../config/env.validation';
 
 @Module({
   imports: [
-    OrmModule.forRoot(ormOptions.host, ormOptions.options),
     ConfigModule.forRoot({
+      load: [configuration],
       validate,
+      isGlobal: true,
+      cache: true,
+      expandVariables: true,
+    }),
+    OrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const data = configService.get<MongoOptions>(EnvObjects.MONGO_OPTIONS);
+        return { uri: data?.host, ...data?.options };
+      },
+      inject: [ConfigService],
     }),
     AuthorModule,
     BookModule,
