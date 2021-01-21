@@ -5,6 +5,7 @@ import { AuthorController } from '../../src/application/controllers';
 import { AuthorService } from '../../src/domain/services/author.service';
 import { fakeAuthor, fakeAuthorCreateDTO } from '../factories/author.factory';
 import { AuthorRepository } from '../../src/infrastructure/repositories';
+import { KafkaService } from '../../src/domain/services';
 
 describe('Author endpoints (e2e)', () => {
   let app: INestApplication;
@@ -15,6 +16,10 @@ describe('Author endpoints (e2e)', () => {
       persist: jest.fn(() => Promise.resolve(fakeAuthorCreateDTO)),
     };
 
+    const kafkaServiceMock: Partial<KafkaService> = {
+      connectProducer: jest.fn(async () => {}),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [],
       controllers: [AuthorController],
@@ -23,6 +28,10 @@ describe('Author endpoints (e2e)', () => {
         {
           provide: AuthorRepository,
           useValue: mockRepository,
+        },
+        {
+          provide: KafkaService,
+          useValue: kafkaServiceMock,
         },
       ],
     }).compile();

@@ -1,31 +1,26 @@
 import morgan from 'morgan';
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { ConfigService } from '@nestjs/config';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './infrastructure/modules/app.module';
+import { getKafkaConsumerConfig } from './infrastructure/config';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  // Producer kafka messages App
-  /* const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
+  // Http Server
+  const app = await NestFactory.create(AppModule);
 
   app.use(morgan('dev'));
 
+  const configService = app.get(ConfigService);
   const NODE_PORT = configService.get('NODE_PORT');
-  await app.listen(NODE_PORT); */
 
-  // Consumer kafka messages App
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        brokers: ['kafka:19092'],
-      },
-      consumer: {
-        groupId: 'my-kafka-consumer',
-      },
-    },
-  });
-  app.listen(() => console.log('Kafka consumer service is listening!'));
+  await app.listen(NODE_PORT, () => Logger.log('HTTP Service is listening', 'App'));
+
+  // Kafka Microservice
+  const microservice = app.connectMicroservice(getKafkaConsumerConfig());
+
+  app.startAllMicroservices();
+
+  microservice.listen(() => Logger.log('kafka consumer service is listening', 'App'));
 }
 bootstrap();

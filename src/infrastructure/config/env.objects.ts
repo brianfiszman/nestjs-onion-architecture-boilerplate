@@ -1,12 +1,6 @@
-import dotenv from 'dotenv';
-import { config } from 'dotenv-flow';
-import dotenv_expand from 'dotenv-expand';
+import { expandEnvVariables } from '../../domain/helpers/';
 
-let envConfig = dotenv.config();
-envConfig = config({
-  purge_dotenv: true,
-});
-dotenv_expand(envConfig);
+expandEnvVariables();
 
 export enum EnvObjects {
   MONGO_OPTIONS = 'MongoOptions',
