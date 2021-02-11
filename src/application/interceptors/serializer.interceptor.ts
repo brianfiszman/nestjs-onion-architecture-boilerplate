@@ -16,7 +16,7 @@ export class SerializerInterceptor implements NestInterceptor {
       this.registry.initSchemaRegisterClient();
 
       const host: RpcArgumentsHost = context.switchToRpc();
-      const data: KafkaPayload = host.getData();
+      const data: any = host.getData();
 
       data.timestamp = convertUnixToDate(data.timestamp);
 
