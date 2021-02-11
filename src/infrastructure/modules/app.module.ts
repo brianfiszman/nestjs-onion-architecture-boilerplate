@@ -9,6 +9,7 @@ import { validate } from '../config/env.validation';
 import { ProductsModule } from '../../domain/modules';
 import { KafkaModule } from './kafka.module';
 import { SchemaRegistryModule } from './schemaRegistry.module';
+import { JobdataModule } from '../../domain/modules/jobdata.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { SchemaRegistryModule } from './schemaRegistry.module';
     ProductsModule,
     KafkaModule,
     SchemaRegistryModule,
+    JobdataModule,
   ],
   controllers: [AppController],
 })
