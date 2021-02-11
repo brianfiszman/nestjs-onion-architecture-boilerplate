@@ -6,7 +6,7 @@ import { AppController } from '../../application/controllers';
 import { AuthorModule } from '../../domain/modules/author.module';
 import { BookModule } from '../../domain/modules/book.module';
 import { validate } from '../config/env.validation';
-import { ProductsModule } from '../../domain/modules';
+import { FactoryModule, ProductsModule } from '../../domain/modules';
 import { KafkaModule } from './kafka.module';
 import { SchemaRegistryModule } from './schemaRegistry.module';
 import { JobdataModule } from '../../domain/modules/jobdata.module';
@@ -34,6 +34,7 @@ import { JobdataModule } from '../../domain/modules/jobdata.module';
     KafkaModule,
     SchemaRegistryModule,
     JobdataModule,
+    FactoryModule,
   ],
   controllers: [AppController],
 })
