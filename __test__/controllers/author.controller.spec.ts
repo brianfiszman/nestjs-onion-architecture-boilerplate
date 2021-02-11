@@ -5,6 +5,7 @@ import { AuthorController } from './../../src/application/controllers/author.con
 import { AuthorService } from '../../src/domain/services/author.service';
 import { AuthorGetDTO } from '../../src/application/dtos/author';
 import { fakeAuthor } from './../factories/author.factory';
+import { KafkaService } from '../../src/domain/services';
 
 describe('Author Controller', () => {
   let authorService: jest.Mocked<AuthorService>;
@@ -15,12 +16,20 @@ describe('Author Controller', () => {
     create: jest.fn(),
   };
 
+  const kafkaServiceMock: Partial<KafkaService> = {
+    connectProducer: jest.fn(async () => {}),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
           provide: AuthorService,
           useValue: authorServiceMock,
+        },
+        {
+          provide: KafkaService,
+          useValue: kafkaServiceMock,
         },
         AuthorController,
       ],
