@@ -4,7 +4,7 @@ import { BookService } from '../services/book.service';
 import { OrmModule } from '../../infrastructure/database/orm';
 import { BookSchema } from '../entities/book.schema';
 import { BookRepository } from '../../infrastructure/repositories';
-import { Entities } from '../entities/entities.enum';
+import { Entities } from '../enums/entities.enum';
 
 @Module({
   imports: [OrmModule.forFeature([{ name: Entities.Book, schema: BookSchema }])],

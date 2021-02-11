@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Book, BookDocument } from '../../domain/entities';
-import { Entities } from '../../domain/entities/entities.enum';
+import { Entities } from '../../domain/enums/entities.enum';
 
 @Injectable()
 export class BookRepository {

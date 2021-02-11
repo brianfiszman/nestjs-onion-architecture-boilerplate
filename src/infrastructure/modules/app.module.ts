@@ -6,6 +6,7 @@ import { AppController } from '../../application/controllers';
 import { AuthorModule } from '../../domain/modules/author.module';
 import { BookModule } from '../../domain/modules/book.module';
 import { validate } from '../config/env.validation';
+import { ProductsModule } from '../../domain/modules';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { validate } from '../config/env.validation';
     }),
     AuthorModule,
     BookModule,
+    ProductsModule,
   ],
   controllers: [AppController],
 })

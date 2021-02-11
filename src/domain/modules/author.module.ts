@@ -4,7 +4,7 @@ import { AuthorController } from '../../application/controllers';
 import { OrmModule } from '../../infrastructure/database/orm';
 import { AuthorSchema } from '../entities';
 import { AuthorRepository } from '../../infrastructure/repositories';
-import { Entities } from '../entities/entities.enum';
+import { Entities } from '../enums/entities.enum';
 import { KafkaModule } from '../../infrastructure/modules/kafka.module';
 
 @Module({

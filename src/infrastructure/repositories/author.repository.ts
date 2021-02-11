@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Author, AuthorDocument } from '../../domain/entities';
 import { AuthorCreateDTO } from '../../application/dtos/author/author-create.dto';
-import { Entities } from '../../domain/entities/entities.enum';
+import { Entities } from '../../domain/enums/entities.enum';
 
 @Injectable()
 export class AuthorRepository {
