@@ -7,6 +7,8 @@ import { AuthorModule } from '../../domain/modules/author.module';
 import { BookModule } from '../../domain/modules/book.module';
 import { validate } from '../config/env.validation';
 import { ProductsModule } from '../../domain/modules';
+import { KafkaModule } from './kafka.module';
+import { SchemaRegistryModule } from './schemaRegistry.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { ProductsModule } from '../../domain/modules';
     AuthorModule,
     BookModule,
     ProductsModule,
+    KafkaModule,
+    SchemaRegistryModule,
   ],
   controllers: [AppController],
 })
