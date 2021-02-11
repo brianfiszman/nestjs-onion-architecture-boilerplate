@@ -533,6 +533,14 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@kafkajs/confluent-schema-registry@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@kafkajs/confluent-schema-registry/-/confluent-schema-registry-1.0.6.tgz#e9b4d3ed63f139a4176e89484b7fd3359378f609"
+  integrity sha512-NrZL1peOIlmlLKvheQcJAx9PHdnc4kaW+9+Yt4jXUfbbYR9EFNCZt6yApI4SwlFilaiZieReM6XslWy1LZAvoQ==
+  dependencies:
+    avsc ">= 5.4.13 < 6"
+    mappersmith ">= 2.30.1 < 3"
+
 "@nestjs/cli@^7.5.1":
   version "7.5.1"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-7.5.1.tgz#a1608f5e7232e9069b502531efeb3edc3742de20"
@@ -1524,6 +1532,11 @@ atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+
+"avsc@>= 5.4.13 < 6":
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/avsc/-/avsc-5.5.3.tgz#40b4ce7aee9f4a5c4e48243114fed0977523e8e9"
+  integrity sha512-LaBbmBsus1mpK+6i99AF57/tUP8/wAj9+ZZm/5HGNIWN0dUZWUEp4/o79pAiRz49Mdb3PskltbCFD3w115TdZQ==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -4891,6 +4904,11 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+"mappersmith@>= 2.30.1 < 3":
+  version "2.34.0"
+  resolved "https://registry.yarnpkg.com/mappersmith/-/mappersmith-2.34.0.tgz#837bb8675acc0561e138ca9d9348be013da5abbf"
+  integrity sha512-OS6fHyP2iOcyAV9fcXZ/OCevqT+JLzLUbFp6WaypmlRihEIL4f9PVqg8/M7e3doGzbE7ot2R4Ca2bYys7ZX44g==
 
 md5.js@^1.3.4:
   version "1.3.5"
