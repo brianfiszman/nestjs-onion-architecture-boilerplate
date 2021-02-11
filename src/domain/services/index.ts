@@ -4,3 +4,4 @@ export * from './kafka.service';
 export * from './schemaRegistry.service';
 export * from './jobdata.service';
 export * from './factory.service';
+export * from './products.service';
