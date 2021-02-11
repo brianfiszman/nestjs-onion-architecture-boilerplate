@@ -13,4 +13,22 @@ module.exports = {
       },
     },
   },
+  coverageProvider: 'v8',
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/main.ts',
+    '!src/**/*.config.ts',
+    '!src/application/controllers/*',
+    '!src/application/interceptors/*',
+    '!src/domain/entities/**',
+    '!src/domain/interfaces/*',
+    '!src/domain/modules/*',
+    '!src/infrastructure/**',
+  ],
+  coverageThreshold: {
+    global: {
+      lines: 70,
+      statements: 70,
+    },
+  },
 };
