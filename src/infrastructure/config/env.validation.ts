@@ -3,25 +3,34 @@ import { validateSync, IsNotEmpty } from 'class-validator';
 
 class EnvironmentVariables {
   @IsNotEmpty()
-  MONGO_HOST: string;
+  PORT: string;
 
   @IsNotEmpty()
+  MONGO_CLIENT_URL: string;
+  @IsNotEmpty()
+  MONGO_DB_NAME: string;
+  @IsNotEmpty()
   MONGO_USER: string;
-
   @IsNotEmpty()
   MONGO_PASS: string;
 
   @IsNotEmpty()
-  MONGO_PORT: string;
+  KAFKA_HOST: string;
+  @IsNotEmpty()
+  KAFKA_CLIENT: string;
+  @IsNotEmpty()
+  KAFKA_GROUP: string;
 
   @IsNotEmpty()
-  MONGO_DB_NAME: string;
-
+  SCHEMA_REGISTRY_CLIENT: string;
   @IsNotEmpty()
-  MONGO_CLIENT_URL: string;
-
+  ACTIONS_SCHEMA: string;
   @IsNotEmpty()
-  MONGO_AUTH_DB: string;
+  PRODUCTS_SCHEMA: string;
+  @IsNotEmpty()
+  JOBDATA_SCHEMA: string;
+  @IsNotEmpty()
+  ERRORS_SCHEMA: string;
 }
 
 export function validate(config: Record<string, unknown>) {
