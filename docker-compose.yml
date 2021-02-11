@@ -8,7 +8,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ../data/mongodb:/data/db
+      - ../boilerplate_data/mongodb:/data/db
     mem_limit: "4G"
 
   boilerplate:
@@ -33,8 +33,8 @@ services:
     ports:
       - 2181:2181
     volumes:
-      - ../data/zookeeper/data:/data
-      - ../data/zookeeper/datalog:/datalog
+      - ../boilerplate_data/zookeeper/data:/data
+      - ../boilerplate_data/zookeeper/datalog:/datalog
 
   kafka:
     image: confluentinc/cp-server:5.4.0
@@ -60,7 +60,7 @@ services:
       CONFLUENT_METRICS_ENABLE: "true"
       CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
     volumes:
-      - ../data/kafka/data:/var/lib/kafka/data
+      - ../boilerplate_data/kafka/data:/var/lib/kafka/data
     depends_on:
       - zookeeper
 

@@ -9,8 +9,10 @@ export class KafkaService {
     private kafkaClient: ClientKafka
   ) {}
 
-  async connectProducer(topic: KafkaTopics): Promise<void> {
-    this.kafkaClient.subscribeToResponseOf(topic);
+  async connectProducer(topic: KafkaTopics[]): Promise<void> {
+    topic.map(name => {
+      this.kafkaClient.subscribeToResponseOf(name);
+    });
     await this.kafkaClient.connect();
   }
 

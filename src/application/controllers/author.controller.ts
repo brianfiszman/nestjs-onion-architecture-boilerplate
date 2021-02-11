@@ -10,7 +10,7 @@ export class AuthorController {
   constructor(private authorService: AuthorService, private kafkaService: KafkaService) {}
 
   async onModuleInit() {
-    await this.kafkaService.connectProducer(KafkaTopics.PRODUCTS);
+    await this.kafkaService.connectProducer([KafkaTopics.PRODUCTS]);
   }
 
   @Get()
