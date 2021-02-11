@@ -10,6 +10,8 @@ import { FactoryModule, ProductsModule } from '../../domain/modules';
 import { KafkaModule } from './kafka.module';
 import { SchemaRegistryModule } from './schemaRegistry.module';
 import { JobdataModule } from '../../domain/modules/jobdata.module';
+import { APP_FILTER } from '@nestjs/core';
+import { GlobalExceptionsFilter } from '../../application/filters/exceptions.filter';
 
 @Module({
   imports: [
@@ -35,6 +37,12 @@ import { JobdataModule } from '../../domain/modules/jobdata.module';
     SchemaRegistryModule,
     JobdataModule,
     FactoryModule,
+  ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: GlobalExceptionsFilter,
+    },
   ],
   controllers: [AppController],
 })
