@@ -2,7 +2,7 @@ import morgan from 'morgan';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './infrastructure/modules/app.module';
-import { getKafkaConsumerConfig } from './infrastructure/config';
+import { getKafkaConfig } from './infrastructure/config';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
@@ -17,7 +17,7 @@ async function bootstrap() {
   await app.listen(NODE_PORT, () => Logger.log('HTTP Service is listening', 'App'));
 
   // Kafka Microservice
-  const microservice = app.connectMicroservice(getKafkaConsumerConfig());
+  const microservice = app.connectMicroservice(getKafkaConfig());
 
   app.startAllMicroservices();
 

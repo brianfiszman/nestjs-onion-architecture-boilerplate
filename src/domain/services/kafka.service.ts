@@ -22,6 +22,6 @@ export class KafkaService {
     const schemaId = this.registry.getSchemaIdByTopic(topic);
     const data = await this.registry.encodePayload(schemaId, message);
 
-    data && this.kafkaClient.send(topic, data);
+    data && this.kafkaClient.emit(topic, data);
   }
 }
