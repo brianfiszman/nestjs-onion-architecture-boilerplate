@@ -1,4 +1,4 @@
-# Express + MongoDB + TypeScript example integration
+# Nest + Mongoose + TypeScript example integration
 
 1. Install dependencies via `yarn`
 2. Run `docker-compose up -d` to start mongodb
