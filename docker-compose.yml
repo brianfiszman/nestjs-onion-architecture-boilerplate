@@ -1,106 +1,27 @@
-version: "3.4"
+version: '3.4'
 
 services:
   mongo:
-    image: mongo:3.7
+    image: mongo:latest
     container_name: mongo
     restart: always
     ports:
       - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=cinema
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123123
     volumes:
-      - ../boilerplate_data/mongodb:/data/db
-    mem_limit: "4G"
+      - ./app_data/mongodb:/data/db
+    mem_limit: '4G'
 
-  boilerplate:
-    image: node:14
+  app:
+    build:
+      context: .
+      dockerfile: local.Dockerfile
     container_name: boilerplate
-    command: >
-      bash -c "cd /app && yarn && yarn start:debug"
     restart: always
     ports:
-      - "5000:5000"
+      - '5000:5000'
     depends_on:
       - mongo
-      - kafka
-      - zookeeper
-    volumes:
-      - ./:/app/
-
-  zookeeper:
-    image: wurstmeister/zookeeper:latest
-    restart: unless-stopped
-    container_name: zookeeper
-    ports:
-      - 2181:2181
-    volumes:
-      - ../boilerplate_data/zookeeper/data:/data
-      - ../boilerplate_data/zookeeper/datalog:/datalog
-
-  kafka:
-    image: confluentinc/cp-server:5.4.0
-    hostname: kafka
-    container_name: kafka
-    ports:
-      - 9092:9092
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CREATE_TOPICS: actions:1:1, products:1:1, jobdata:1:1, test:1:1
-      KAFKA_LISTENERS: PLAINTEXT://kafka:19092,LISTENER_DOCKER_EXTERNAL://:9092,CONTROL_CENTER://kafka:29092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:19092,LISTENER_DOCKER_EXTERNAL://127.0.0.1:9092,CONTROL_CENTER://kafka:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT,CONTROL_CENTER:PLAINTEXT
-      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
-      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
-      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
-      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
-      CONFLUENT_METRICS_ENABLE: "true"
-      CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
-    volumes:
-      - ../boilerplate_data/kafka/data:/var/lib/kafka/data
-    depends_on:
-      - zookeeper
-
-  kafka-tools:
-    image: confluentinc/cp-kafka:5.4.0
-    hostname: kafka-tools
-    container_name: kafka-tools
-    command: ["tail", "-f", "/dev/null"]
-    network_mode: "host"
-
-  schema-registry:
-    image: confluentinc/cp-schema-registry:5.4.0
-    hostname: schema-registry
-    container_name: schema-registry
-    depends_on:
-      - zookeeper
-      - kafka
-    ports:
-      - 8081:8081
-    environment:
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "PLAINTEXT://kafka:19092"
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
-
-  control-center:
-    image: confluentinc/cp-enterprise-control-center:5.4.0
-    hostname: control-center
-    container_name: control-center
-    depends_on:
-      - zookeeper
-      - kafka
-      - schema-registry
-    ports:
-      - 9021:9021
-    environment:
-      CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka:29092
-      CONTROL_CENTER_ZOOKEEPER_CONNECT: zookeeper:2181
-      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-      CONTROL_CENTER_REPLICATION_FACTOR: 1
-      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
-      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
-      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
-      PORT: 9021

@@ -1,3 +1,1 @@
-export * from './book.repository';
-export * from './author.repository';
-export * from './products.repository';
+export * from './movie.repository';

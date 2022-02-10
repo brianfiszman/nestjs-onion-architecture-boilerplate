@@ -1,6 +1,8 @@
 node_modules/
 dist
 dist/**
+boilerplate_data/
+boilerplate_data/**
 *.log
 */*.log
 docker-compose.override.yml

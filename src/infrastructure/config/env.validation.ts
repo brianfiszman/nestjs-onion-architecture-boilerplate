@@ -13,24 +13,6 @@ class EnvironmentVariables {
   MONGO_USER: string;
   @IsNotEmpty()
   MONGO_PASS: string;
-
-  @IsNotEmpty()
-  KAFKA_HOST: string;
-  @IsNotEmpty()
-  KAFKA_CLIENT: string;
-  @IsNotEmpty()
-  KAFKA_GROUP: string;
-
-  @IsNotEmpty()
-  SCHEMA_REGISTRY_CLIENT: string;
-  @IsNotEmpty()
-  ACTIONS_SCHEMA: string;
-  @IsNotEmpty()
-  PRODUCTS_SCHEMA: string;
-  @IsNotEmpty()
-  JOBDATA_SCHEMA: string;
-  @IsNotEmpty()
-  ERRORS_SCHEMA: string;
 }
 
 export function validate(config: Record<string, unknown>) {

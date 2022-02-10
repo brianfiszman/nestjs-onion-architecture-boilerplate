@@ -1,17 +1,11 @@
 FROM node:fermium-alpine AS environment
 
-ARG NEXUS_TOKEN
-ENV NPM_REGISTRY_TOKEN="${NEXUS_TOKEN}"
-
-ARG NPM_REGISTRY_URL=https://nexus.tools.msazi.shopadvizor.net/repository/npm-saz
-ENV NPM_REGISTRY_URL="${NPM_REGISTRY_URL}"
-
 ARG MS_HOME=/app
 ENV MS_HOME="${MS_HOME}"
 
 ENV MS_SCRIPTS="${MS_HOME}/scripts"
 
-ENV USER_NAME=products USER_UID=1000 GROUP_NAME=products GROUP_UID=1000
+ENV USER_NAME=node USER_UID=1000 GROUP_NAME=node GROUP_UID=1000
 
 WORKDIR "${MS_HOME}"
 

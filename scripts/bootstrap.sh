@@ -16,4 +16,4 @@ set -m
 
 __APP_PATH="${MS_HOME:-/app}"
 
-node dist/src/main.js
+node dist/main.js

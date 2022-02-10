@@ -4,8 +4,6 @@ expandEnvVariables();
 
 export enum EnvObjects {
   MONGO_OPTIONS = 'MongoOptions',
-  KAFKA_CLIENT = 'KafkaClientOptions',
-  SCHEMAS_ID = 'SchemaRegistryId',
 }
 
 export interface MongoOptions {
@@ -19,13 +17,6 @@ export interface MongoOptions {
   };
 }
 
-export interface SchemaRegistryIds {
-  actions: number;
-  products: number;
-  jobdata: number;
-  errors: number;
-}
-
 export const configuration = (): any => ({
   MongoOptions: {
     host: process.env.MONGO_CLIENT_URL,
@@ -36,11 +27,5 @@ export const configuration = (): any => ({
         password: process.env.MONGO_PASS,
       },
     },
-  },
-  SchemaRegistryId: {
-    actions: parseInt(process.env.ACTIONS_SCHEMA as string),
-    products: parseInt(process.env.PRODUCTS_SCHEMA as string),
-    jobdata: parseInt(process.env.JOBDATA_SCHEMA as string),
-    errors: parseInt(process.env.ERRORS_SCHEMA as string),
   },
 });

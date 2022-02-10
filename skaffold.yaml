@@ -1,0 +1,31 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+build:
+  local:
+    useBuildkit: true
+  artifacts:
+  - image: brianfiszman/nestjs-test-app
+deploy:
+  helm:
+    releases:
+    - name: app
+      chartPath: k8s
+      wait: true
+      useHelmSecrets: true
+      valuesFiles:
+      - ./k8s/values.yaml
+      - ./k8s/secrets.yaml
+      artifactOverrides:
+        image: brianfiszman/nestjs-test-app
+      imageStrategy:
+        helm: {}
+
+portForward:
+ - resourceType: service
+   resourceName: app
+   port: 8080
+   localPort: 8080
+ - resourceType: service
+   resourceName: app-mongodb
+   port: 27017
+   localPort: 27017

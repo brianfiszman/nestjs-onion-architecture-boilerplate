@@ -1,7 +1,5 @@
 export enum Entities {
-  Author = 'Author',
-  Book = 'Book',
-  Product = 'Product',
+  Movie = 'Movie',
 }
 
 export enum Timestamps {
